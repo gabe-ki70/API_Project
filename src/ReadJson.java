@@ -35,6 +35,7 @@ public class ReadJson implements ActionListener{
     private JPanel controlPanel3;
     private JTextArea countryinput;
     private JTextArea yearinput;
+    private JTextArea monthinput;
     private JTextArea dayinput;
     private int WIDTH = 800;
     private int HEIGHT = 700;
@@ -67,11 +68,13 @@ public class ReadJson implements ActionListener{
         mainFrame.setSize(WIDTH, HEIGHT);
         mainFrame.setLayout(new GridLayout(1, 2));
         countryinput = new JTextArea("Input Country Name: ");
-        yearinput = new JTextArea("Input Date Between 2010-2030(format: year-month-day): ");
+        yearinput = new JTextArea("Input Year Between 2010-2030: ");
+        monthinput = new JTextArea("Input Month Number: ");
+        dayinput = new JTextArea("Input Day Number: ");
         dayoutput = new JTextArea("Day info: ");
         controlPanel2 = new JPanel();
         controlPanel3 = new JPanel();
-        controlPanel2.setLayout(new GridLayout(3, 1));
+        controlPanel2.setLayout(new GridLayout(5, 1));
         controlPanel3.setLayout(new GridLayout(1, 2));
 
         JButton startbutton = new JButton("Start");
@@ -86,6 +89,8 @@ public class ReadJson implements ActionListener{
         mainFrame.add(dayoutput);
         controlPanel2.add(countryinput);
         controlPanel2.add(yearinput);
+        controlPanel2.add(monthinput);
+        controlPanel2.add(dayinput);
         controlPanel2.add(controlPanel3);
         controlPanel3.add(startbutton);
         controlPanel3.add(resetbutton);
@@ -105,14 +110,24 @@ public class ReadJson implements ActionListener{
         String totlaJson = "";
         try {
 
-            String userpokemon = countryinput.getText();
-            String userpokemonName = userpokemon.substring(23);
+            String usercountry = countryinput.getText();
+            String usercountryName = usercountry.substring(20);
             countryinput.append("\n");
+            String useryear = yearinput.getText();
+            String useryearNumber = useryear.substring(30);
+            yearinput.append("\n");
+            String usermonth = monthinput.getText();
+            String usermonthNumber = usermonth.substring(20);
+            monthinput.append("\n");
+            String userday = dayinput.getText();
+            String userdayNumber = userday.substring(18);
             //countryinput.append(userpokemonName);
-
-            URL url = new URL("https://pokeapi.co/api/v2/pokemon/"+userpokemonName);
+            //usercountryName = "US";
+            //useryearNumber = "2021";
+            URL url = new URL("https://api.api-ninjas.com/v1/holidays?country="+usercountryName+"&year="+useryearNumber+"&type=");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.setRequestProperty("X-Api-Key", "67GGggozF6jiETmV0Xcshg==udWw2CrXhMGpD9P2");
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
@@ -142,22 +157,23 @@ public class ReadJson implements ActionListener{
 
         JSONParser parser = new JSONParser();
         //System.out.println(str);
-        org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) parser.parse(totlaJson);
-        //System.out.println(jsonObject);
+        org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) parser.parse(totlaJson);
+        System.out.println(jsonArray);
 
-        long weight = 0;
-        String name = null;
+        long year = 0;
+        String country = null;
         String abilities1 = null;
         String moves1 = null;
         try {
-            name = (String) jsonObject.get("name");
-            System.out.println("name: " + name);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(1);
+            country = (String) jsonObject.get("country");
+            System.out.println("country: " + country);
             dayoutput.append("\n");
-            dayoutput.append("name: " + name);
-            weight = (long) jsonObject.get("weight");
-            System.out.println("weight: " + weight);
+            dayoutput.append("country: " + country);
+            year = (long) jsonObject.get("year");
+            System.out.println("year: " + year);
             dayoutput.append("\n");
-            dayoutput.append("weight: " + weight);
+            dayoutput.append("year: " + year);
 
             org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("abilities");
             int n = msg.size(); //(msg).length();
