@@ -160,20 +160,30 @@ public class ReadJson implements ActionListener{
         org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) parser.parse(totlaJson);
         System.out.println(jsonArray);
 
-        long year = 0;
+
         String country = null;
         String abilities1 = null;
         String moves1 = null;
         try {
+            String usercountry = countryinput.getText();
+            String usercountryName = usercountry.substring(20);
+            countryinput.append("\n");
+            String useryear = yearinput.getText();
+            String useryearNumber = useryear.substring(30);
+            yearinput.append("\n");
+            String usermonth = monthinput.getText();
+            String usermonthNumber = usermonth.substring(20);
+            monthinput.append("\n");
+            String userday = dayinput.getText();
+            String userdayNumber = userday.substring(18);
             JSONObject jsonObject = (JSONObject) jsonArray.get(1);
             country = (String) jsonObject.get("country");
             System.out.println("country: " + country);
             dayoutput.append("\n");
             dayoutput.append("country: " + country);
-            year = (long) jsonObject.get("year");
-            System.out.println("year: " + year);
+            System.out.println("year: " + useryearNumber);
             dayoutput.append("\n");
-            dayoutput.append("year: " + year);
+            dayoutput.append("date: "+usermonthNumber+"/"+userdayNumber+"/"+useryearNumber);
 
             org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("abilities");
             int n = msg.size(); //(msg).length();
@@ -226,8 +236,11 @@ public class ReadJson implements ActionListener{
                 }
             }
             else if (command.equals("Reset")){
-                dayoutput.setText("Pokemon info: ");
-                countryinput.setText("Input name of Pokemon: ");
+                dayoutput.setText("Day info: ");
+                countryinput.setText("Input Country Name: ");
+                monthinput.setText("Input Month Number: ");
+                dayinput.setText("Input Day Number: ");
+                yearinput.setText("Input Year Between 2010-2030: ");
             }
 
 
