@@ -112,13 +112,13 @@ public class ReadJson implements ActionListener{
 
             String usercountry = countryinput.getText();
             String usercountryName = usercountry.substring(20);
-            countryinput.append("\n");
+            //countryinput.append("\n");
             String useryear = yearinput.getText();
             String useryearNumber = useryear.substring(30);
-            yearinput.append("\n");
+            //yearinput.append("\n");
             String usermonth = monthinput.getText();
             String usermonthNumber = usermonth.substring(20);
-            monthinput.append("\n");
+            //monthinput.append("\n");
             String userday = dayinput.getText();
             String userdayNumber = userday.substring(18);
             //countryinput.append(userpokemonName);
@@ -162,8 +162,10 @@ public class ReadJson implements ActionListener{
 
 
         String country = null;
-        String abilities1 = null;
-        String moves1 = null;
+        String holidaynames = null;
+        String holidaydate = null;
+        String userdate = null;
+        String holidaydayofweek = null;
         try {
             String usercountry = countryinput.getText();
             String usercountryName = usercountry.substring(20);
@@ -176,39 +178,66 @@ public class ReadJson implements ActionListener{
             monthinput.append("\n");
             String userday = dayinput.getText();
             String userdayNumber = userday.substring(18);
-            JSONObject jsonObject = (JSONObject) jsonArray.get(1);
-            country = (String) jsonObject.get("country");
-            System.out.println("country: " + country);
+//            JSONObject jsonObject = (JSONObject) jsonArray.get(1);
+//            country = (String) jsonObject.get("country");
+            System.out.println("Country: " + usercountryName);
             dayoutput.append("\n");
-            dayoutput.append("country: " + country);
-            System.out.println("year: " + useryearNumber);
+            dayoutput.append("Country: " + usercountryName);
+            System.out.println("Year: " + useryearNumber);
             dayoutput.append("\n");
-            dayoutput.append("date: "+usermonthNumber+"/"+userdayNumber+"/"+useryearNumber);
+            dayoutput.append("Date: "+useryearNumber+"-"+usermonthNumber+"-"+userdayNumber);
 
-            org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("abilities");
-            int n = msg.size(); //(msg).length();
+
+            //org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("");
+            int n = jsonArray.size(); //(msg).length();
             for (int i = 0; i < n; ++i) {
-                JSONObject test = (JSONObject) msg.get(i);
+                JSONObject test = (JSONObject) jsonArray.get(i);
                 //System.out.println(test);
-                JSONObject abilities = (JSONObject) test.get("ability");
-                abilities1 = (String) abilities.get("name");
-                System.out.println("ability: " + abilities1);
-                dayoutput.append("\n");
-                dayoutput.append("ability: " + abilities1);
+                //JSONObject holidayname = (JSONObject) test.get("name");
+                holidaynames = (String) test.get("name");
+                holidaydate = (String) test.get("date");
+                holidaydayofweek = (String) test.get("day");
+                userdate = useryearNumber+"-"+usermonthNumber+"-"+userdayNumber;
+
+                if(userdate.equals(holidaydate)) {
+                    System.out.println("Holiday: " + holidaynames);
+                    dayoutput.append("\n");
+                    dayoutput.append("Holiday: " + holidaynames);
+                    System.out.println("Day of The Week: " + holidaydayofweek);
+                    dayoutput.append("\n");
+                    dayoutput.append("Day of The Week: " + holidaydayofweek);
+                    if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
+                        System.out.println("There is no school on " + holidaynames + "!");
+                        dayoutput.append("\n");
+                        dayoutput.append("There is no school on " + holidaynames + "!");
+                    }
+                }
+                else{
+                    System.out.println("There is no holiday on that day!");
+                    if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
+                        System.out.println("There is no school on " + userdate + "!");
+                        dayoutput.append("There is no school on " + userdate + "!");
+                    }
+                    else if(holidaydayofweek.equals("Monday") || holidaydayofweek.equals("Tuesday") || holidaydayofweek.equals("Wednesday") || holidaydayofweek.equals("Thursday") || holidaydayofweek.equals("Friday")){
+                        System.out.println("Sorry! There's school on " + userdate + "!");
+                        dayoutput.append("Sorry! There's school on " + userdate + "!");
+                    }
+                }
+
                 // System.out.println(person.getInt("key"));
             }
 
-            org.json.simple.JSONArray msg1 = (org.json.simple.JSONArray) jsonObject.get("moves");
-            for (int s = 0; s < n; ++s) {
-                JSONObject test1 = (JSONObject) msg1.get(s);
-                //System.out.println(test);
-                JSONObject moves = (JSONObject) test1.get("move");
-                moves1 = (String) moves.get("name");
-                System.out.println("move: " + moves1);
-                dayoutput.append("\n");
-                dayoutput.append("move: " + moves1);
-                // System.out.println(person.getInt("key"));
-            }
+//            org.json.simple.JSONArray msg1 = (org.json.simple.JSONArray) jsonObject.get("moves");
+//            for (int s = 0; s < n; ++s) {
+//                JSONObject test1 = (JSONObject) msg1.get(s);
+//                //System.out.println(test);
+//                JSONObject moves = (JSONObject) test1.get("move");
+//                moves1 = (String) moves.get("name");
+//                System.out.println("move: " + moves1);
+//                dayoutput.append("\n");
+//                dayoutput.append("move: " + moves1);
+//                // System.out.println(person.getInt("key"));
+//            }
 
 
             // org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("abilities");
