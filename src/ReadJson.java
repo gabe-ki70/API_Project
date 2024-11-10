@@ -40,7 +40,7 @@ public class ReadJson implements ActionListener{
     private int WIDTH = 800;
     private int HEIGHT = 700;
 
-    public static void main(String args[]) throws ParseException{
+    public static void main(String[] args) throws ParseException{
         // In java JSONObject is used to create JSON object
         // which is a subclass of java.util.HashMap.
         // JFrame mainFrame;
@@ -166,6 +166,7 @@ public class ReadJson implements ActionListener{
         String holidaydate = null;
         String userdate = null;
         String holidaydayofweek = null;
+        String holidaytype = null;
         try {
             String usercountry = countryinput.getText();
             String usercountryName = usercountry.substring(20);
@@ -197,36 +198,35 @@ public class ReadJson implements ActionListener{
                 holidaynames = (String) test.get("name");
                 holidaydate = (String) test.get("date");
                 holidaydayofweek = (String) test.get("day");
+                holidaytype = (String) test.get("type");
                 userdate = useryearNumber+"-"+usermonthNumber+"-"+userdayNumber;
-
-                if(userdate.equals(holidaydate)) {
-                    System.out.println("Holiday: " + holidaynames);
-                    dayoutput.append("\n");
-                    dayoutput.append("Holiday: " + holidaynames);
-                    System.out.println("Day of The Week: " + holidaydayofweek);
-                    dayoutput.append("\n");
-                    dayoutput.append("Day of The Week: " + holidaydayofweek);
-                    if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
-                        System.out.println("There is no school on " + holidaynames + "!");
-                        dayoutput.append("\n");
-                        dayoutput.append("There is no school on " + holidaynames + "!");
-                    }
-                }
-                else{
-                    System.out.println("There is no holiday on that day!");
-                    if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
-                        System.out.println("There is no school on " + userdate + "!");
-                        dayoutput.append("There is no school on " + userdate + "!");
-                    }
-                    else if(holidaydayofweek.equals("Monday") || holidaydayofweek.equals("Tuesday") || holidaydayofweek.equals("Wednesday") || holidaydayofweek.equals("Thursday") || holidaydayofweek.equals("Friday")){
-                        System.out.println("Sorry! There's school on " + userdate + "!");
-                        dayoutput.append("Sorry! There's school on " + userdate + "!");
-                    }
-                }
-
                 // System.out.println(person.getInt("key"));
             }
 
+            if(userdate.equals(holidaydate)) {
+                System.out.println("Holiday: " + holidaynames);
+                dayoutput.append("\n");
+                dayoutput.append("Holiday: " + holidaynames);
+                System.out.println("Day of The Week: " + holidaydayofweek);
+                dayoutput.append("\n");
+                dayoutput.append("Day of The Week: " + holidaydayofweek);
+                if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
+                    System.out.println("There is no school on " + holidaynames + "!");
+                    dayoutput.append("\n");
+                    dayoutput.append("There is no school on " + holidaynames + "!");
+                }
+            }
+            else{
+                System.out.println("There is no holiday on that day!");
+                if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
+                    System.out.println("There is no school on " + userdate + "!");
+                    dayoutput.append("There is no school on " + userdate + "!");
+                }
+                else if(holidaydayofweek.equals("Monday") || holidaydayofweek.equals("Tuesday") || holidaydayofweek.equals("Wednesday") || holidaydayofweek.equals("Thursday") || holidaydayofweek.equals("Friday")){
+                    System.out.println("Sorry! There's school on " + userdate + "!");
+                    dayoutput.append("Sorry! There's school on " + userdate + "!");
+                }
+            }
 //            org.json.simple.JSONArray msg1 = (org.json.simple.JSONArray) jsonObject.get("moves");
 //            for (int s = 0; s < n; ++s) {
 //                JSONObject test1 = (JSONObject) msg1.get(s);
