@@ -17,11 +17,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JScrollPane;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.*;
+
+
 
 
 // video to load jar
 //https://www.youtube.com/watch?v=QAJ09o3Xl_0
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -49,11 +55,11 @@ public class ReadJson implements ActionListener{
         JSONObject file = new JSONObject();
         file.put("Full Name", "Ritu Sharma");
         file.put("Roll No.", 1704310046);
-        file.put("Tution Fees", 65400);
+        file.put("Tuition Fees", 65400);
 
 
         // To print in JSON format.
-        System.out.print(file.get("Tution Fees"));
+        System.out.print(file.get("Tuition Fees"));
         System.out.println(file.get("Full Name"));
 
 
@@ -64,7 +70,7 @@ public class ReadJson implements ActionListener{
     }
 
     private void prepareGUI() {
-        mainFrame = new JFrame("Calendar");
+        mainFrame = new JFrame("Do you have school?");
         mainFrame.setSize(WIDTH, HEIGHT);
         mainFrame.setLayout(new GridLayout(1, 2));
         countryinput = new JTextArea("Input Country Name: ");
@@ -188,20 +194,29 @@ public class ReadJson implements ActionListener{
             dayoutput.append("\n");
             dayoutput.append("Date: "+useryearNumber+"-"+usermonthNumber+"-"+userdayNumber);
 
-
+            userdate = useryearNumber+"-"+usermonthNumber+"-"+userdayNumber;
             //org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("");
             int n = jsonArray.size(); //(msg).length();
-            for (int i = 0; i < n; ++i) {
+            int i = 0;
+            while (!userdate.equals(holidaydate)){
+                if(i==n){
+                    break;
+                }
+          //  for (int i = 0; i < n; ++i) {
                 JSONObject test = (JSONObject) jsonArray.get(i);
                 //System.out.println(test);
                 //JSONObject holidayname = (JSONObject) test.get("name");
+
                 holidaynames = (String) test.get("name");
                 holidaydate = (String) test.get("date");
                 holidaydayofweek = (String) test.get("day");
                 holidaytype = (String) test.get("type");
-                userdate = useryearNumber+"-"+usermonthNumber+"-"+userdayNumber;
                 // System.out.println(person.getInt("key"));
+                i++;
             }
+
+            System.out.println(userdate);
+            System.out.println(holidaydate);
 
             if(userdate.equals(holidaydate)) {
                 System.out.println("Holiday: " + holidaynames);
@@ -218,14 +233,8 @@ public class ReadJson implements ActionListener{
             }
             else{
                 System.out.println("There is no holiday on that day!");
-                if(holidaydayofweek.equals("Saturday") || holidaydayofweek.equals("Sunday")){
-                    System.out.println("There is no school on " + userdate + "!");
-                    dayoutput.append("There is no school on " + userdate + "!");
-                }
-                else if(holidaydayofweek.equals("Monday") || holidaydayofweek.equals("Tuesday") || holidaydayofweek.equals("Wednesday") || holidaydayofweek.equals("Thursday") || holidaydayofweek.equals("Friday")){
-                    System.out.println("Sorry! There's school on " + userdate + "!");
-                    dayoutput.append("Sorry! There's school on " + userdate + "!");
-                }
+                dayoutput.append("\n");
+                dayoutput.append("There is no holiday on that day!");
             }
 //            org.json.simple.JSONArray msg1 = (org.json.simple.JSONArray) jsonObject.get("moves");
 //            for (int s = 0; s < n; ++s) {
@@ -247,9 +256,44 @@ public class ReadJson implements ActionListener{
             e.printStackTrace();
         }
 
-
-
     }
+
+    public String getDayNumberOld(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        String day = "";
+        if(cal.get(Calendar.DAY_OF_WEEK) == 1){
+            System.out.println("Sunday");
+            day = "Sunday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 2){
+            System.out.println("Monday");
+            day = "Monday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 3){
+            System.out.println("Tuesday");
+            day = "Tuesday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 4){
+            System.out.println("Wednesday");
+            day = "Wednesday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 5){
+            System.out.println("Thursday");
+            day = "Thursday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 6){
+            System.out.println("Friday");
+            day = "Friday";
+        }
+        else if(cal.get(Calendar.DAY_OF_WEEK) == 7){
+            System.out.println("Saturday");
+            day = "Saturday";
+        }
+        return day;
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
@@ -260,6 +304,7 @@ public class ReadJson implements ActionListener{
             if (command.equals("Start")) {
                 try {
                     pull();
+                    getDayNumberOld()
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
