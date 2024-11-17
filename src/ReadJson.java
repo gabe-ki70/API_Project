@@ -19,6 +19,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JScrollPane;
 import java.util.Calendar;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -260,6 +261,7 @@ public class ReadJson implements ActionListener{
 
     public String getDayNumberOld(Date date) {
         Calendar cal = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         cal.setTime(date);
         String day = "";
         if(cal.get(Calendar.DAY_OF_WEEK) == 1){
