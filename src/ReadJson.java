@@ -257,7 +257,12 @@ public class ReadJson implements ActionListener{
                 dayoutput.append("There is no school that day!");
             }
 
-            else if (dayOfWeek.equals("Monday") || dayOfWeek.equals("Tuesday") || dayOfWeek.equals("Wednesday") || dayOfWeek.equals("Thursday") || dayOfWeek.equals("Friday") && !userdate.equals(holidaydate)){
+            else if (holidaynames.equals("Christmas Day") || holidaynames.equals("New Year's Day") || holidaynames.equals("New Year's Eve") || holidaynames.equals("Yom Kippur") || holidaynames.equals("New Year's Eve observed")){
+                System.out.println("There is no school that day!");
+                dayoutput.append("\n");
+                dayoutput.append("There is no school that day!");
+            }
+            else{
                 System.out.println("Sorry! You have school on that day!");
                 dayoutput.append("\n");
                 dayoutput.append("Sorry! You have school on that day!");
