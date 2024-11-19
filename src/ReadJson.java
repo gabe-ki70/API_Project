@@ -243,21 +243,24 @@ public class ReadJson implements ActionListener{
                 dayoutput.append("\n");
                 dayoutput.append("There is no holiday on that day!");
             }
-            if (dayOfWeek.equals("Monday") || dayOfWeek.equals("Tuesday") || dayOfWeek.equals("Wednesday") || dayOfWeek.equals("Thursday") || dayOfWeek.equals("Friday") && !userdate.equals(holidaydate)){
-                System.out.println("Sorry! You have school on that day!");
+
+
+            if(holidaytype.equals("PUBLIC_HOLIDAY") || holidaytype.equals("NATIONAL_HOLIDAY") || holidaytype.equals("FEDERAL_HOLIDAY")){
+                System.out.println("There is no school that day!");
                 dayoutput.append("\n");
-                dayoutput.append("Sorry! You have school on that day!");
+                dayoutput.append("There is no school that day!");
             }
+
             else if (dayOfWeek.equals("Saturday") || dayOfWeek.equals("Sunday")){
                 System.out.println("There is no school that day!");
                 dayoutput.append("\n");
                 dayoutput.append("There is no school that day!");
             }
 
-            if(holidaytype.equals("PUBLIC_HOLIDAY") || holidaytype.equals("NATIONAL_HOLIDAY") || holidaytype.equals("FEDERAL_HOLIDAY")){
-                System.out.println("There is no school that day!");
+            else if (dayOfWeek.equals("Monday") || dayOfWeek.equals("Tuesday") || dayOfWeek.equals("Wednesday") || dayOfWeek.equals("Thursday") || dayOfWeek.equals("Friday") && !userdate.equals(holidaydate)){
+                System.out.println("Sorry! You have school on that day!");
                 dayoutput.append("\n");
-                dayoutput.append("There is no school that day!");
+                dayoutput.append("Sorry! You have school on that day!");
             }
 //            org.json.simple.JSONArray msg1 = (org.json.simple.JSONArray) jsonObject.get("moves");
 //            for (int s = 0; s < n; ++s) {
